@@ -1,91 +1,235 @@
 
+import { useState } from "react";
+import {
+    ShoppingCart,
+    Menu,
+    X,
+    Home,
+    Package,
+    Grid2X2,
+    Info,
+    LogIn,
+    UserPlus
+} from "lucide-react";
+
+import { Link } from "react-router-dom";
+
 function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
-        <nav className="border-b border-indigo-900/20 bg-slate-950 text-white">
+        <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 text-white shadow-lg backdrop-blur-xl">
+
             <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
                 {/* Logo */}
-                <a href="#" className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-lg font-bold shadow-lg shadow-indigo-500/20">
+                <Link
+                    to="/"
+                    onClick={closeMenu}
+                    className="group flex items-center gap-3"
+                >
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-lg font-black shadow-lg shadow-violet-500/20 transition duration-300 group-hover:scale-105">
                         M
                     </div>
 
-                    <span className="text-xl font-bold tracking-tight">
-                        Marketplace
-                    </span>
-                </a>
+                    <div>
+                        <span className="block text-lg font-bold tracking-tight">
+                            Marketplace
+                        </span>
+
+                        <span className="hidden text-[10px] font-medium uppercase tracking-[0.25em] text-slate-500 sm:block">
+                            Everything. One place.
+                        </span>
+                    </div>
+                </Link>
 
 
-                {/* Navigation */}
+                {/* Desktop Navigation */}
                 <div className="hidden items-center gap-8 md:flex">
 
-                    <a
-                        href="#"
-                        className="text-sm font-medium text-slate-300 transition hover:text-white"
+                    <Link
+                        to="/"
+                        className="group flex items-center gap-2 text-sm font-medium text-slate-300 transition hover:text-white"
                     >
+                        <Home className="h-4 w-4 transition group-hover:text-violet-400" />
                         Home
-                    </a>
+                    </Link>
 
-                    <a
-                        href="#"
-                        className="text-sm font-medium text-slate-300 transition hover:text-white"
+                    <Link
+                        to="/products"
+                        className="group flex items-center gap-2 text-sm font-medium text-slate-300 transition hover:text-white"
                     >
+                        <Package className="h-4 w-4 transition group-hover:text-violet-400" />
                         Products
-                    </a>
+                    </Link>
 
-                    <a
-                        href="#"
-                        className="text-sm font-medium text-slate-300 transition hover:text-white"
+                    <Link
+                        to="/categories"
+                        className="group flex items-center gap-2 text-sm font-medium text-slate-300 transition hover:text-white"
                     >
+                        <Grid2X2 className="h-4 w-4 transition group-hover:text-violet-400" />
                         Categories
-                    </a>
+                    </Link>
 
-                    <a
-                        href="#"
-                        className="text-sm font-medium text-slate-300 transition hover:text-white"
+                    <Link
+                        to="/about"
+                        className="group flex items-center gap-2 text-sm font-medium text-slate-300 transition hover:text-white"
                     >
+                        <Info className="h-4 w-4 transition group-hover:text-violet-400" />
                         About
-                    </a>
+                    </Link>
 
                 </div>
 
 
-                {/* Actions */}
-                <div className="flex items-center gap-3">
+                {/* Desktop Actions */}
+                <div className="hidden items-center gap-3 md:flex">
 
                     {/* Cart */}
-                    <button
+                    <Link
+                        to="/cart"
                         className="relative rounded-xl p-2.5 text-slate-300 transition hover:bg-white/10 hover:text-white"
                         aria-label="Shopping cart"
                     >
-                        <span className="text-xl">🛒</span>
+                        <ShoppingCart className="h-5 w-5" />
 
-                        <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-violet-500 text-xs font-bold text-white">
+                        <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-violet-500 text-[10px] font-bold text-white ring-2 ring-slate-950">
                             0
                         </span>
-                    </button>
+                    </Link>
 
 
                     {/* Login */}
-                    <a
-                        href="#"
-                        className="rounded-xl border border-slate-700 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-white/5"
+                    <Link
+                        to="/login"
+                        className="flex items-center gap-2 rounded-xl border border-slate-700 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-white/5"
                     >
+                        <LogIn className="h-4 w-4" />
                         Login
-                    </a>
+                    </Link>
 
 
                     {/* Register */}
-                    <a
-                        href="#"
-                        className="rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:from-violet-600 hover:to-indigo-700"
+                    <Link
+                        to="/register"
+                        className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition duration-300 hover:-translate-y-0.5 hover:from-violet-600 hover:to-indigo-700"
                     >
+                        <UserPlus className="h-4 w-4" />
                         Register
-                    </a>
+                    </Link>
 
                 </div>
 
+
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="rounded-xl p-2.5 text-slate-300 transition hover:bg-white/10 hover:text-white md:hidden"
+                    aria-label="Toggle menu"
+                >
+                    {isMenuOpen ? (
+                        <X className="h-6 w-6" />
+                    ) : (
+                        <Menu className="h-6 w-6" />
+                    )}
+                </button>
+
             </div>
+
+
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+                <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
+
+                    <div className="flex flex-col gap-2">
+
+                        <Link
+                            to="/"
+                            onClick={closeMenu}
+                            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+                        >
+                            <Home className="h-5 w-5 text-violet-400" />
+                            Home
+                        </Link>
+
+                        <Link
+                            to="/products"
+                            onClick={closeMenu}
+                            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+                        >
+                            <Package className="h-5 w-5 text-violet-400" />
+                            Products
+                        </Link>
+
+                        <Link
+                            to="/categories"
+                            onClick={closeMenu}
+                            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+                        >
+                            <Grid2X2 className="h-5 w-5 text-violet-400" />
+                            Categories
+                        </Link>
+
+                        <Link
+                            to="/about"
+                            onClick={closeMenu}
+                            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+                        >
+                            <Info className="h-5 w-5 text-violet-400" />
+                            About
+                        </Link>
+
+
+                        <div className="my-3 h-px bg-white/10" />
+
+
+                        <Link
+                            to="/cart"
+                            onClick={closeMenu}
+                            className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
+                        >
+                            <div className="flex items-center gap-3">
+                                <ShoppingCart className="h-5 w-5 text-violet-400" />
+                                Cart
+                            </div>
+
+                            <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-violet-500 px-2 text-xs font-bold">
+                                0
+                            </span>
+                        </Link>
+
+
+                        <div className="mt-2 grid grid-cols-2 gap-3">
+
+                            <Link
+                                to="/login"
+                                onClick={closeMenu}
+                                className="flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/5"
+                            >
+                                <LogIn className="h-4 w-4" />
+                                Login
+                            </Link>
+
+                            <Link
+                                to="/register"
+                                onClick={closeMenu}
+                                className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 px-4 py-3 text-sm font-semibold text-white"
+                            >
+                                <UserPlus className="h-4 w-4" />
+                                Register
+                            </Link>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            )}
+
         </nav>
     );
 }
