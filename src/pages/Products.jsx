@@ -1,17 +1,29 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import ProductsHeader from "../components/ProductsHeader";
+import ProductFilters from "../components/ProductFilters";
 import ProductGrid from "../components/ProductGrid";
+
 import { getProducts } from "../services/api";
+
 
 function Products() {
 
+    // All products from API
     const [products, setProducts] = useState([]);
+
+    // UI state
+    const [search, setSearch] = useState("");
+    const [category, setCategory] = useState("all");
+    const [sort, setSort] = useState("default");
+
+    // Request state
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
 
+    // Get products from backend
     useEffect(() => {
 
         async function loadProducts() {
@@ -34,12 +46,74 @@ function Products() {
 
         }
 
-
         loadProducts();
 
     }, []);
 
 
+    // Filter + Search + Sort
+    const filteredProducts = useMemo(() => {
+
+        let result = [...products];
+
+
+        // Search
+        if (search.trim() !== "") {
+
+            result = result.filter((product) =>
+                product.name
+                    ?.toLowerCase()
+                    .includes(search.toLowerCase())
+            );
+
+        }
+
+
+        // Category
+        if (category !== "all") {
+
+            result = result.filter((product) =>
+                product.category?.toLowerCase() === category.toLowerCase()
+            );
+
+        }
+
+
+        // Sort
+        if (sort === "price-low") {
+
+            result.sort(
+                (a, b) => Number(a.price) - Number(b.price)
+            );
+
+        }
+
+
+        if (sort === "price-high") {
+
+            result.sort(
+                (a, b) => Number(b.price) - Number(a.price)
+            );
+
+        }
+
+
+        if (sort === "name") {
+
+            result.sort(
+                (a, b) =>
+                    a.name.localeCompare(b.name)
+            );
+
+        }
+
+
+        return result;
+
+    }, [products, search, category, sort]);
+
+
+    // Loading
     if (loading) {
 
         return (
@@ -63,6 +137,7 @@ function Products() {
     }
 
 
+    // Error
     if (error) {
 
         return (
@@ -95,10 +170,21 @@ function Products() {
             <div className="mx-auto max-w-7xl">
 
                 <ProductsHeader
-                    productsCount={products.length}
+                    productsCount={filteredProducts.length}
                 />
 
-                {products.length === 0 ? (
+
+                <ProductFilters
+                    search={search}
+                    setSearch={setSearch}
+                    category={category}
+                    setCategory={setCategory}
+                    sort={sort}
+                    setSort={setSort}
+                />
+
+
+                {filteredProducts.length === 0 ? (
 
                     <div className="rounded-3xl bg-white p-12 text-center shadow-sm ring-1 ring-slate-200">
 
@@ -107,7 +193,7 @@ function Products() {
                         </h2>
 
                         <p className="mt-2 text-slate-500">
-                            There are no products available yet.
+                            Try changing your search or filters.
                         </p>
 
                     </div>
@@ -115,7 +201,7 @@ function Products() {
                 ) : (
 
                     <ProductGrid
-                        products={products}
+                        products={filteredProducts}
                     />
 
                 )}
