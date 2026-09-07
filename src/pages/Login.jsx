@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LogIn, Mail, Lock } from "lucide-react";
 
 import { loginUser } from "../services/api";
-
+import { useAuth } from "../context/AuthContext";
 function Login() {
     const navigate = useNavigate();
 
@@ -36,12 +36,8 @@ function Login() {
                 formData.email,
                 formData.password
             );
-
-            localStorage.setItem(
-                "access_token",
-                data.access_token
-            );
-
+            const { login } = useAuth();
+            login(data.access_token);
             navigate("/");
         } catch (error) {
             setError(error.message);
