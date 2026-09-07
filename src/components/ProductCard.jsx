@@ -4,7 +4,7 @@ import {
     ShoppingCart,
     Star
 } from "lucide-react";
-
+import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
 
@@ -96,6 +96,13 @@ function ProductCard({ product }) {
 
                         Add
                     </button>
+
+                   <Link
+                    to={`/products/${product.id}`}
+                    className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-600"
+                >
+                    View
+                </Link>
 
                 </div>
 

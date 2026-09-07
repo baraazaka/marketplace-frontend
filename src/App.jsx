@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 function Placeholder({ title }) {
     return (
         <main className="flex min-h-[70vh] items-center justify-center bg-slate-100 px-6">
@@ -43,6 +44,10 @@ function App() {
                     path="/products"
                     element={<Products />}
                 />
+                <Route
+                 path="/products/:id"
+                element={<ProductDetailsPage />}
+                    />
                 <Route
                     path="/categories"
                     element={<Placeholder title="Categories" />}
