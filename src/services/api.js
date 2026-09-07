@@ -82,3 +82,33 @@ export async function loginUser(email, password) {
     return data;
 }
 
+
+
+export async function signupUser(fullName, email, password) {
+    const response = await fetch(
+        `${API_URL}/api/auth/signup`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                full_name: fullName,
+                email,
+                password
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.error || "Signup failed"
+        );
+    }
+
+    return data;
+}
+
+

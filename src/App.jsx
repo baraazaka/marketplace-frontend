@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 function Placeholder({ title }) {
     return (
         <main className="flex min-h-[70vh] items-center justify-center bg-slate-100 px-6">
@@ -66,11 +67,7 @@ function App() {
 
                     <Route path="/login" element={<Login />} />
 
-                <Route
-                    path="/register"
-                    element={<Placeholder title="Register" />}
-                />
-
+                <Route path="/register" element={<Register />} />
             </Routes>
 
         </BrowserRouter>
