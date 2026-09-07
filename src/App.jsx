@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import Login from "./pages/Login";
 function Placeholder({ title }) {
     return (
         <main className="flex min-h-[70vh] items-center justify-center bg-slate-100 px-6">
@@ -63,10 +64,7 @@ function App() {
                     element={<Placeholder title="Shopping Cart" />}
                 />
 
-                <Route
-                    path="/login"
-                    element={<Placeholder title="Login" />}
-                />
+                    <Route path="/login" element={<Login />} />
 
                 <Route
                     path="/register"
