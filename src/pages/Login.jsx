@@ -5,8 +5,10 @@ import { LogIn, Mail, Lock } from "lucide-react";
 
 import { loginUser } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+
 function Login() {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -36,8 +38,9 @@ function Login() {
                 formData.email,
                 formData.password
             );
-            const { login } = useAuth();
+
             login(data.access_token);
+
             navigate("/");
         } catch (error) {
             setError(error.message);
@@ -50,7 +53,6 @@ function Login() {
         <main className="flex min-h-screen items-center justify-center bg-slate-100 px-6 py-16">
             <div className="w-full max-w-md">
 
-                {/* Header */}
                 <div className="mb-8 text-center">
                     <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/20">
                         <LogIn className="h-7 w-7 text-white" />
@@ -65,7 +67,6 @@ function Login() {
                     </p>
                 </div>
 
-                {/* Card */}
                 <div className="rounded-3xl bg-white p-8 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200">
 
                     <form
@@ -73,7 +74,6 @@ function Login() {
                         className="space-y-5"
                     >
 
-                        {/* Email */}
                         <div>
                             <label
                                 htmlFor="email"
@@ -98,7 +98,6 @@ function Login() {
                             </div>
                         </div>
 
-                        {/* Password */}
                         <div>
                             <label
                                 htmlFor="password"
@@ -123,14 +122,12 @@ function Login() {
                             </div>
                         </div>
 
-                        {/* Error */}
                         {error && (
                             <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
                                 {error}
                             </div>
                         )}
 
-                        {/* Submit */}
                         <button
                             type="submit"
                             disabled={loading}
@@ -143,7 +140,6 @@ function Login() {
 
                     </form>
 
-                    {/* Register */}
                     <p className="mt-6 text-center text-sm text-slate-500">
                         Don't have an account?{" "}
                         <Link
@@ -153,6 +149,7 @@ function Login() {
                             Create one
                         </Link>
                     </p>
+
                 </div>
             </div>
         </main>

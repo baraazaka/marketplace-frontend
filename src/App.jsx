@@ -1,12 +1,20 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
+import Wishlist from "./pages/Wishlist";
+import Navbar from "./components/navbar/Navbar";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrdersPage from "./pages/OrdersPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import CategoriesPage from "./pages/CategoriesPage";
+import CategoryDetailsPage from "./pages/CategoryDetailsPage";
+import ProfilePage from "./pages/ProfilePage";
 function Placeholder({ title }) {
     return (
         <main className="flex min-h-[70vh] items-center justify-center bg-slate-100 px-6">
@@ -33,8 +41,7 @@ function App() {
     return (
         <BrowserRouter>
 
-            <Navbar />
-
+        <Navbar/>
             <Routes>
 
                 <Route
@@ -50,10 +57,7 @@ function App() {
                  path="/products/:id"
                 element={<ProductDetailsPage />}
                     />
-                <Route
-                    path="/categories"
-                    element={<Placeholder title="Categories" />}
-                />
+           
 
                 <Route
                     path="/about"
@@ -62,11 +66,16 @@ function App() {
 
                 <Route
                     path="/cart"
-                    element={<Placeholder title="Shopping Cart" />}
+                    element={<Cart />   }
                 />
-
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/orders/:id" element={<OrderDetailsPage />}/>
+                <Route path="/categories" element={<CategoriesPage />} />
+                <Route path="/categories/:id" element={<CategoryDetailsPage />} />
                     <Route path="/login" element={<Login />} />
-
+                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/register" element={<Register />} />
             </Routes>
 

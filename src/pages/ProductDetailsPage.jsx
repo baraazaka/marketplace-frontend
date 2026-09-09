@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
@@ -7,6 +6,7 @@ import { getProductById } from "../services/api";
 
 import ProductGallery from "../components/ProductGallery";
 import ProductInfo from "../components/ProductInfo";
+import ReviewSection from "../components/reviews/ReviewSection";
 
 function ProductDetailsPage() {
     const { id } = useParams();
@@ -119,6 +119,11 @@ function ProductDetailsPage() {
 
                     </div>
                 </div>
+
+                {/* Reviews */}
+                <ReviewSection
+                    productId={product.id}
+                />
 
             </div>
         </main>
