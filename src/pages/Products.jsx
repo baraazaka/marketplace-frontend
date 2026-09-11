@@ -5,13 +5,19 @@ import ProductsHeader from "../components/ProductsHeader";
 import ProductFilters from "../components/ProductFilters";
 import ProductGrid from "../components/ProductGrid";
 
-import { getProducts } from "../services/api";
+import {
+    getProducts,
+    getCategories
+} from "../services/api";
 
 
 function Products() {
 
     // All products from API
     const [products, setProducts] = useState([]);
+
+    // Categories from API
+    const [categories, setCategories] = useState([]);
 
     // UI state
     const [search, setSearch] = useState("");
@@ -23,16 +29,26 @@ function Products() {
     const [error, setError] = useState(null);
 
 
-    // Get products from backend
+    // Get products + categories
     useEffect(() => {
 
-        async function loadProducts() {
+        async function loadData() {
 
             try {
 
-                const data = await getProducts();
+                setLoading(true);
+                setError(null);
 
-                setProducts(data);
+                const [
+                    productsData,
+                    categoriesData
+                ] = await Promise.all([
+                    getProducts(),
+                    getCategories()
+                ]);
+
+                setProducts(productsData || []);
+                setCategories(categoriesData || []);
 
             } catch (error) {
 
@@ -46,7 +62,7 @@ function Products() {
 
         }
 
-        loadProducts();
+        loadData();
 
     }, []);
 
@@ -63,7 +79,9 @@ function Products() {
             result = result.filter((product) =>
                 product.name
                     ?.toLowerCase()
-                    .includes(search.toLowerCase())
+                    .includes(
+                        search.toLowerCase()
+                    )
             );
 
         }
@@ -73,36 +91,46 @@ function Products() {
         if (category !== "all") {
 
             result = result.filter((product) =>
-                product.category?.toLowerCase() === category.toLowerCase()
+                product.category
+                    ?.toLowerCase()
+                    === category.toLowerCase()
             );
 
         }
 
 
-        // Sort
+        // Sort: Price Low → High
         if (sort === "price-low") {
 
             result.sort(
-                (a, b) => Number(a.price) - Number(b.price)
+                (a, b) =>
+                    Number(a.price) -
+                    Number(b.price)
             );
 
         }
 
 
+        // Sort: Price High → Low
         if (sort === "price-high") {
 
             result.sort(
-                (a, b) => Number(b.price) - Number(a.price)
+                (a, b) =>
+                    Number(b.price) -
+                    Number(a.price)
             );
 
         }
 
 
+        // Sort: Name A → Z
         if (sort === "name") {
 
             result.sort(
                 (a, b) =>
-                    a.name.localeCompare(b.name)
+                    (a.name || "").localeCompare(
+                        b.name || ""
+                    )
             );
 
         }
@@ -110,7 +138,12 @@ function Products() {
 
         return result;
 
-    }, [products, search, category, sort]);
+    }, [
+        products,
+        search,
+        category,
+        sort
+    ]);
 
 
     // Loading
@@ -170,7 +203,9 @@ function Products() {
             <div className="mx-auto max-w-7xl">
 
                 <ProductsHeader
-                    productsCount={filteredProducts.length}
+                    productsCount={
+                        filteredProducts.length
+                    }
                 />
 
 
@@ -181,6 +216,7 @@ function Products() {
                     setCategory={setCategory}
                     sort={sort}
                     setSort={setSort}
+                    categories={categories}
                 />
 
 

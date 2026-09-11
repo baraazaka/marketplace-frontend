@@ -74,7 +74,6 @@ function ProfileInfo({ profile }) {
                         })}
                     </p>
                 </div>
-
             </div>
         </div>
     );

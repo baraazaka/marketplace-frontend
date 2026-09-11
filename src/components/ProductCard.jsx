@@ -12,22 +12,27 @@ function ProductCard({ product }) {
 
         <div className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-500 hover:-translate-y-2 hover:shadow-2xl">
 
-
             {/* Product Image */}
 
             <div className="relative h-64 overflow-hidden bg-gradient-to-br from-violet-100 to-indigo-100">
 
-                <div className="flex h-full items-center justify-center text-7xl transition duration-500 group-hover:scale-110">
-                    🛍️
-                </div>
-
+                {product.image_url ? (
+                    <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                    />
+                ) : (
+                    <div className="flex h-full items-center justify-center text-7xl transition duration-500 group-hover:scale-110">
+                        🛍️
+                    </div>
+                )}
 
                 {/* Category */}
 
                 <span className="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-violet-700 backdrop-blur">
                     {product.category || "Product"}
                 </span>
-
 
                 {/* Wishlist */}
 
@@ -40,7 +45,6 @@ function ProductCard({ product }) {
 
             </div>
 
-
             {/* Product Information */}
 
             <div className="p-5">
@@ -49,11 +53,9 @@ function ProductCard({ product }) {
                     {product.name}
                 </h2>
 
-
                 <p className="mt-2 line-clamp-2 min-h-10 text-sm leading-5 text-slate-500">
                     {product.description || "No description available."}
                 </p>
-
 
                 {/* Rating */}
 
@@ -71,7 +73,6 @@ function ProductCard({ product }) {
 
                 </div>
 
-
                 {/* Price + Cart */}
 
                 <div className="mt-5 flex items-center justify-between">
@@ -88,21 +89,14 @@ function ProductCard({ product }) {
 
                     </div>
 
+                
 
-                    <button
-                        className="flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition duration-300 hover:bg-violet-600"
+                    <Link
+                        to={`/products/${product.id}`}
+                        className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-600"
                     >
-                        <ShoppingCart className="h-4 w-4" />
-
-                        Add
-                    </button>
-
-                   <Link
-                    to={`/products/${product.id}`}
-                    className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-600"
-                >
-                    View
-                </Link>
+                        View
+                    </Link>
 
                 </div>
 
@@ -112,6 +106,4 @@ function ProductCard({ product }) {
     );
 }
 
-
 export default ProductCard;
-

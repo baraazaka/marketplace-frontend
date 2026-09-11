@@ -4,14 +4,14 @@ import {
     SlidersHorizontal
 } from "lucide-react";
 
-
 function ProductFilters({
     search,
     setSearch,
     category,
     setCategory,
     sort,
-    setSort
+    setSort,
+    categories
 }) {
 
     return (
@@ -29,7 +29,9 @@ function ProductFilters({
                     <input
                         type="text"
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) =>
+                            setSearch(e.target.value)
+                        }
                         placeholder="Search products..."
                         className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-12 pr-4 text-sm text-slate-900 outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10"
                     />
@@ -45,28 +47,24 @@ function ProductFilters({
 
                     <select
                         value={category}
-                        onChange={(e) => setCategory(e.target.value)}
+                        onChange={(e) =>
+                            setCategory(e.target.value)
+                        }
                         className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-11 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 lg:w-48"
                     >
+
                         <option value="all">
                             All Categories
                         </option>
 
-                        <option value="fashion">
-                            Fashion
-                        </option>
-
-                        <option value="electronics">
-                            Electronics
-                        </option>
-
-                        <option value="gaming">
-                            Gaming
-                        </option>
-
-                        <option value="home">
-                            Home & Living
-                        </option>
+                        {categories.map((item) => (
+                            <option
+                                key={item.id}
+                                value={item.name}
+                            >
+                                {item.name}
+                            </option>
+                        ))}
 
                     </select>
 
@@ -77,7 +75,9 @@ function ProductFilters({
 
                 <select
                     value={sort}
-                    onChange={(e) => setSort(e.target.value)}
+                    onChange={(e) =>
+                        setSort(e.target.value)
+                    }
                     className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm font-medium text-slate-700 outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-500/10 lg:w-48"
                 >
 
@@ -105,7 +105,6 @@ function ProductFilters({
 
     );
 }
-
 
 export default ProductFilters;
 

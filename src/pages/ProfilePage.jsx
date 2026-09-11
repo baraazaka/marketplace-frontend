@@ -1,5 +1,11 @@
 
 import { useEffect, useState } from "react";
+import {
+    Store,
+    ShoppingBag,
+    ShieldCheck
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { getMyProfile } from "../services/api";
 
@@ -80,6 +86,7 @@ function ProfilePage() {
                     </p>
                 </div>
 
+
                 {/* Profile Card */}
                 <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200">
                     <ProfileHeader profile={profile} />
@@ -87,11 +94,139 @@ function ProfilePage() {
                     <ProfileInfo profile={profile} />
                 </div>
 
+
+                {/* Seller Center */}
+                {profile?.role === "seller" && (
+                    <div className="mt-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 md:p-8">
+
+                        <div>
+                            <p className="text-sm font-bold uppercase tracking-widest text-violet-600">
+                                Seller
+                            </p>
+
+                            <h2 className="mt-2 text-2xl font-black text-slate-900">
+                                Seller Center
+                            </h2>
+
+                            <p className="mt-2 text-sm text-slate-500">
+                                Manage your store and customer orders.
+                            </p>
+                        </div>
+
+
+                        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+
+                            {/* Seller Dashboard */}
+                            <Link
+                                to="/seller/dashboard"
+                                className="group rounded-2xl border border-slate-200 p-5 transition hover:border-violet-200 hover:bg-violet-50"
+                            >
+                                <div className="flex items-center gap-4">
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 transition group-hover:bg-white">
+                                        <Store className="h-6 w-6 text-violet-600" />
+                                    </div>
+
+                                    <div>
+                                        <h3 className="font-black text-slate-900">
+                                            Seller Dashboard
+                                        </h3>
+
+                                        <p className="mt-1 text-sm text-slate-500">
+                                            Manage your products.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </Link>
+
+
+                            {/* Seller Orders */}
+                            <Link
+                                to="/seller/orders"
+                                className="group rounded-2xl border border-slate-200 p-5 transition hover:border-violet-200 hover:bg-violet-50"
+                            >
+                                <div className="flex items-center gap-4">
+
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 transition group-hover:bg-white">
+                                        <ShoppingBag className="h-6 w-6 text-violet-600" />
+                                    </div>
+
+                                    <div>
+                                        <h3 className="font-black text-slate-900">
+                                            Seller Orders
+                                        </h3>
+
+                                        <p className="mt-1 text-sm text-slate-500">
+                                            Manage customer orders.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </Link>
+
+                        </div>
+                    </div>
+                )}
+
+
+{/* Admin Center */}
+{profile?.role === "admin" && (
+    <div className="mt-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 md:p-8">
+
+        <div>
+            <p className="text-sm font-bold uppercase tracking-widest text-violet-600">
+                Administration
+            </p>
+
+            <h2 className="mt-2 text-2xl font-black text-slate-900">
+                Admin Center
+            </h2>
+
+            <p className="mt-2 text-sm text-slate-500">
+                Manage and monitor the marketplace.
+            </p>
+        </div>
+
+
+        <div className="mt-6">
+
+            {/* Admin Dashboard */}
+            <Link
+                to="/admin/dashboard"
+                className="group block rounded-2xl border border-slate-200 p-5 transition hover:border-violet-200 hover:bg-violet-50"
+            >
+                <div className="flex items-center gap-4">
+
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 transition group-hover:bg-white">
+                        <ShieldCheck className="h-6 w-6 text-violet-600" />
+                    </div>
+
+                    <div>
+                        <h3 className="font-black text-slate-900">
+                            Admin Dashboard
+                        </h3>
+
+                        <p className="mt-1 text-sm text-slate-500">
+                            Manage and monitor the marketplace.
+                        </p>
+                    </div>
+
+                </div>
+            </Link>
+
+        </div>
+
+    </div>
+)}
+
+
                 {/* Edit Profile */}
                 <EditProfileForm
                     profile={profile}
                     onProfileUpdated={setProfile}
                 />
+
             </div>
         </main>
     );

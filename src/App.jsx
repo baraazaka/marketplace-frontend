@@ -15,6 +15,15 @@ import OrderDetailsPage from "./pages/OrderDetailsPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryDetailsPage from "./pages/CategoryDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
+import SellerDashboardPage from "./pages/SellerDashboardPage";
+import EditProductPage from "./pages/EditProductPage";
+import SellerOrdersPage from "./pages/SellerOrdersPage";
+import SellerOrderDetailsPage from "./pages/SellerOrderDetailsPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
+import AdminProductsPage from "./pages/AdminProductsPage";
+import AdminCategoriesPage from "./pages/AdminCategoriesPage";
 function Placeholder({ title }) {
     return (
         <main className="flex min-h-[70vh] items-center justify-center bg-slate-100 px-6">
@@ -44,39 +53,33 @@ function App() {
         <Navbar/>
             <Routes>
 
-                <Route
-                    path="/"
-                    element={<Home />}
-                />
+                <Route path="/" element={<Home />} />
 
-                <Route
-                    path="/products"
-                    element={<Products />}
-                />
-                <Route
-                 path="/products/:id"
-                element={<ProductDetailsPage />}
-                    />
+                <Route path="/products"  element={<Products />} />
+                <Route path="/products/:id"element={<ProductDetailsPage />} />
            
 
-                <Route
-                    path="/about"
-                    element={<Placeholder title="About" />}
-                />
+                <Route  path="/about" element={<Placeholder title="About" />}/>
 
-                <Route
-                    path="/cart"
-                    element={<Cart />   }
-                />
+                <Route path="/cart"element={<Cart />   }/>
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/orders/:id" element={<OrderDetailsPage />}/>
                 <Route path="/categories" element={<CategoriesPage />} />
                 <Route path="/categories/:id" element={<CategoryDetailsPage />} />
-                    <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/seller/dashboard" element={<SellerDashboardPage />}/>
+                <Route path="/products/edit/:id" element={<EditProductPage />}/>
+                <Route path="/seller/orders" element={<SellerOrdersPage />} />
+                <Route path="/seller/orders/:id" element={<SellerOrderDetailsPage />} />
+                <Route path="/admin/dashboard" element={<AdminDashboardPage />}/>
+                <Route path="/admin/users" element={<AdminUsersPage />}/>
+                <Route path="/admin/orders" element={<AdminOrdersPage />}/>
+                <Route path="/admin/products"element={<AdminProductsPage />}/>
+                <Route path="/admin/categories" element={<AdminCategoriesPage />} />
             </Routes>
 
         </BrowserRouter>
